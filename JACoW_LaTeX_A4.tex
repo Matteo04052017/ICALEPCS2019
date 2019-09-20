@@ -67,387 +67,236 @@
 
 \begin{document}
 
-\title{preparation OF papers for \NoCaseChange{JACoW} conferences\thanks{Work supported by ...}}
+\title{CI-CD Practices with the TANGO-controls framework in the context of the Square Kilometre Array (SKA) Telescope Project\thanks{Work supported by Italian Government (MEF - Ministero dell'Economia e delle Finanze, MIUR - Ministero dell'Istruzione, dell'Università e della Ricerca)}}
 
-\author{A. N. Author\thanks{email address}, H. Coauthor, Name of Institute or Affiliation, City, Country \\
-		P. Contributor\textsuperscript{1}, Name of Institute or Affiliation, City, Country \\
-		\textsuperscript{1}also at Name of Secondary Institute or Affiliation, City, Country}
+\author{M. Di Carlo\thanks{matteo.dicarlo@inaf.it}, INAF Osservatorio Astronomico d'Abruzzo, Teramo, Italy \\
+		M. Bartolini, SKA Organisation, Macclesfield, UK \\
+		K. Madisa, A. J. Venter, SKA South Africa, Cape Town, South Africa \\
+		B. Morgado, Grupo de Radioastronomia do Instituto de Telecomunicações, Aveiro, Portugal
+		}
 	
 \maketitle
 
 %
 \begin{abstract}
-   Many conference series have adopted the same standards
-   for electronic publication and have joined the Joint
-   Accelerator Conferences Website (JACoW) collaboration
-   for the publication of their proceedings. This document
-   describes the common requirements for the submission of
-   papers to these conferences. Please consult individual
-   conference information for page limits, method of electronic
-   submission, etc. It is not intended that this should
-   be a tutorial in word processing; the aim is to explain the
-   particular requirements for electronic publication at
-   www.JACoW.org. The abstract itself is to act as a stand-alone
-   entity and, as such, should not include citations. Any acronyms 
-   should be expanded on their first occurrence, both in the 
-   abstract and in the rest of the paper. 
-   The abstract itself is to act as a stand-alone entity and, 
-   as such, should not include citations. Any acronyms should 
-   be expanded on their first occurrence, both in the abstract 
-   and in the rest of the paper.
+   The Square Kilometre Array (SKA) project is an international effort to build two radio interferometers in South Africa and Australia to form one Observatory monitored and controlled from the global headquarters (GHQ) based in the United Kingdom at Jodrell Bank. The project is now approaching the end of its design phase and gearing up for the beginning of formal construction. The period between the end of the design phases and the start of the construction phase, has been called bridging and, one of the main goals of it, is to promote some CI-CD practices among the teams. CI-CD is an acronym that stands for continuous integration and continuous delivery and/or continuous deployment. Continuous integration (CI) means the practice to merge all developers local (working) copies into the mainline very often (many times per day). Continuous delivery is the approach of developing software in short cycle ensuring that it can be released anytime and continuous deployment is the approach of delivering the software frequently and automatically. The present paper wants to analyse the decision taken by the system team (a specialized agile team devoted to developing and maintaining the tools that allows continuous practises) in order to promote the CI-CD practices with TANGO controls framework. 
+
 \end{abstract}
 
+\section{Introduction}
+When creating releases for the end-users, every big software industry faces the problem of integrating the different parts of the software and bring them to the production that is where users work. The problem arises when the many parts of the project are developed independently for a period of time that can be very different from what was planned. In a classical waterfall software development process, this was quite normal but the same happen  also following the classical git flow, that is when a single developer creates a branch to develop a particular feature. Considering, for example, one hundred developers working in the same repository each of them creating one or two branches, then it is easy to understand what is called the “merge hell” that is when every merge has to deal with conflict parts and it is impossible, for a single developer, to solve all the conflicts in its own creating delay in publishing any release. 
+This problem was analyses at the Square Kilometre Array (SKA) project, an international effort to build two radio interferometers in South Africa and Australia to form one Observatory monitored and controlled from the global headquarters (GHQ) based in the United Kingdom at Jodrell Bank.  
+The selected development process is Agile (Scaled Agile framework) that is basically incremental and iterative with a specialized team (known as system team) devoted to support the continuous Integration, test automation and continuous Deployment.
 
-\section{SUBMISSION OF PAPERS}
-Each author should submit the PDF file and all source
-files (text and figures) to enable the paper to be
-reconstructed if there are processing difficulties.
 
-\section{MANUSCRIPTS}
-Templates are provided for recommended software and
-authors are advised to use them. Please consult the
-individual conference help pages if questions arise.
-
-\subsection{General Layout}
-
-These instructions are a typical implementation of the
-requirements. Manuscripts should have:
-\begin{Itemize}
-    \item  Either A4 (\SI{21.0}{cm}~$\times$~\SI{29.7}{cm}; \SI{8.27}{in}~$\times$~\SI{11.69}{in}) or US
-           letter size (\SI{21.6}{cm}~$\times$~\SI{27.9}{cm}; \SI{8.5}{in}~$\times$~\SI{11.0}{in}) paper.
-    \item  Single-spaced text in two columns of \SI{82.5}{mm} (\SI{3.25}{in}) with \SI{5.3}{mm}
-           (\SI{0.2}{in}) separation. More recent versions of Microsoft Word have a default spacing of 1.5 lines;
-           authors must change this to 1 line.
-    \item  The text located within the margins specified in Table~\ref{l2ea4-t1}.
-\end{Itemize}
-\begin{table}[!hbt]
-   \centering
-   \caption{Margin Specifications}
-   \begin{tabular}{lcc}
-       \toprule
-       \textbf{Margin} & \textbf{A4 Paper}                      & \textbf{US Letter Paper} \\
-       \midrule
-           Top         & \SI{37}{mm} (\SI{1.46}{in})            & \SI{0.75}{in} (\SI{19}{mm})        \\ %[3pt]
-          Bottom       & \SI{19}{mm} (\SI{0.75}{in})            & \SI{0.75}{in} (\SI{19}{mm})        \\ %[3pt]
-           Left        & \SI{20}{mm} (\SI{0.79}{in})            & \SI{0.79}{in} (\SI{20}{mm})        \\ %[3pt]
-           Right       & \SI{20}{mm} (\SI{0.79}{in})            & \SI{1.02}{in} (\SI{26}{mm})        \\
-       \bottomrule
-   \end{tabular}
-   \label{tab:margins}
-\end{table}
-
-\subsection{Fonts}
-
-In order to produce good Adobe Acrobat PDF files, authors
-using the `jacow' \LaTeX{} template are asked to use only the fonts
-defined in the ‘jacow’ class file (v2.3 of 2019/01/15) in standard, 
-bold (i.\,e., \verb|\textbf|) or italic (i.\,e., \verb|\textit|) form and
-symbols from the standard set of fonts. In Word use only
-Symbol and, depending on your platform, Times or Times New Roman
-fonts in standard, bold or italic form.
-
-The layout of the text on the page is illustrated in
-Fig.~\ref{fig:paper_layout}. Note that the paper’s title and the author list should
-be the width of the full page. Tables and figures may span
-the whole \SI{170}{mm} page width, if desired (see Fig.~\ref{fig:jacow_team}), but
-if they span both columns, they should be placed at either
-the top or bottom of a page to ensure proper flow of the
-text (which should flow from top to bottom in each column).
+\section{TANGO-controls overview}
+One of the most important decisions taken by the SKA project is the adoption of the TANGO-controls framework~\cite{TANGO-controls} which is a middleware for connecting software processes together mainly based on the CORBA standard (Common Object Request Broker Architecture). The standard defines how to exposes the procedures of an object within a software process with the RPC protocol (Remote Procedure Call).  The TANGO framework extends the definition of object with the concept of Device which represents a real or virtual device to control that expose commands (that are procedures), attributes (like the state) and allows both synchronous and asynchronous communication with events generated from the attributes (for instance a change in the value can generate an event). Fig.~\ref{fig:tangodatamodel}  shows a module view of the framework.
 
 \begin{figure}[!htb]
    \centering
-   \includegraphics*[width=.7\columnwidth]{JACpic_mc}
-   \caption{Layout of papers.}
-   \label{fig:paper_layout}
+   \includegraphics*[width=1\columnwidth]{SimplifiedDataModel}
+   \caption{TANGO-Controls simplified data model.}
+   \label{fig:tangodatamodel}
 \end{figure}
 
-\begin{figure*}[!tbh]
-    \centering
-    \includegraphics*[width=\textwidth]{JACpic2}
-
-    \caption{Example of a full-width figure showing the JACoW Team at their annual
-    	     meeting in December 2018. This figure has a multi-line caption that has to be
-    	     justified rather than centred.}
-    \label{fig:jacow_team}
-\end{figure*}
-
-\subsection{Title and Author List}
-
-The title should use \SI{14}{pt} bold uppercase letters and be centred on the page.
-Individual letters may be lowercased to avoid misinterpretation (e.\,g., mW, GeV, 
-SPring-8, SwissFEL).
-To include a funding support statement, put an asterisk after the title and
-the support text at the bottom of the first column on page~1---in Word,
-use a text box; in \LaTeX, use $\backslash$\texttt{thanks}. See also the
-subsection on footnotes.
-
-The names of authors, their organizations/affiliations and
-postal addresses should be grouped by affiliation and
-listed in \SI{12}{pt} upper- and lowercase letters. The name of
-the submitting or primary author should be first, followed
-by the coauthors, alphabetically by affiliation. Where
-authors have multiple affiliations, the secondary affiliation
-may be indicated with a superscript, as shown in the
-author listing of this paper. See \textbf{ANNEX~A} for further examples.
-
-\subsection{Section Headings}
-
-Section headings should not be numbered. They should
-use  \SI{12}{pt}  bold  uppercase  letters  and  be  centred  in  the
-column. All section headings should appear directly above
-the text---there should never be a column break between a heading and the
-following paragraph.
-
-\subsection{Subsection Headings}
-
-Subsection  headings  should  not  be  numbered.
-They should use \SI{12}{pt} italic letters and be left aligned in the column.
-Subsection headings use Title Case (or Initial Caps)
-and should appear directly above the text---there should never be a column break
-between a subheading and the following paragraph.
-
-\subsubsection{Third-level Headings} These should use \SI{10}{pt} bold
-letters and be run into the paragraph text. In \LaTeX{} these headings are
-created with \LaTeX's \verb|\subsubsection| command.
-In the Word templates authors must bold the heading text themselves.
-This heading should be used sparingly. See Table~\ref{tab:styles}
-for its style details.
-
-\subsection{Paragraph Text}
-
-Paragraphs should use \SI{10}{pt} font and be justified (touch each side) in
-the column. The beginning of each paragraph should be indented
-approximately \SI{0.33}{cm} (\SI{0.13}{in}). The last line of a paragraph should not be
-printed by itself at the beginning of a column nor should the first line of
-a paragraph be printed by itself at the end of a column.
-
-\subsection{Figures, Tables and Equations}
-
-Place figures and tables as close to their place of mention as
-possible. Lettering in figures and tables should be large enough to
-reproduce clearly. Use of non-approved fonts in figures can lead to
-problems when the files are processed. \LaTeX{} users should be sure to use
-non-bitmapped versions of Computer Modern fonts in equations (Type\,1 PostScript
-or OpenType fonts are required. Their use is described in the help 
-pages of the JACoW website\cite{jacow-help}).
-
-Each figure and table must be numbered in ascending
-order (1, 2, 3, etc.) throughout the paper. 
-Figure captions are placed below figures, and table
-captions are placed above tables.
-
-Figure captions are formatted as shown in Figs.~\ref{fig:paper_layout} and \ref{fig:jacow_team},
-while table captions take the form of a heading,
-with initial letters of principle words, capitalized, and
-without a period at the end (see Tables~\ref{tab:margins} and~\ref{tab:styles}).
-Any reference to the contents of the table should be made from
-the body of the paper rather than from within the table
-caption itself.
-
-Single-line captions are centred in the column, while captions
-that span more than one line should be justified.
-The \LaTeX{} template uses the ‘booktabs’ package to
-format tables. 
-
-When referring to a figure from within the text, the
-convention is to use the abbreviated form [e.\,g., Fig.~1]
-\emph{unless} the reference is at the start of the sentence, in
-which case “Figure” is written in full. Reference to a
-table, however, is never abbreviated [e.\,g., Table~1].
-
-
-If a displayed equation needs a number (i.\,e., it will be
-referenced), place it in parentheses, and flush with the
-right margin of the column. The equation itself should be
-indented and centred, as far as is possible:
-\begin{equation}\label{eq:label}
-    C_B=\frac{q^3}{3\epsilon_{0} mc}=\SI{3.54}{\micro eV/T}
-\end{equation}
-
-When referencing a numbered equation, use the word
-“Equation” at the start of a sentence, and the abbreviated
-form, “Eq.”, if in the text. The equation number is placed
-in parentheses [e.\,g., Eq.~\eqref{eq:label}], which can be 
-achieved in \LaTeX{} using \verb|\eqref{eq:label}|.
-
-\subsection{Units}
-	
-Units should be written using the standard, roman font,
-not the italic font, as shown in Eq.~\eqref{eq:label}.
-An unbreakable space should precede a unit (in \LaTeX{} use a “\verb|\,|”,
-the template uses the ‘siunitx’ package to format units).
-Some examples are: \SI{3}{keV},
-\SI{100}{kW}, \SI{7}{µm}. When a unit appears in a hyphenated,
-compound adjective that precedes a noun, it takes on the
-singular form, e.\,g., the 3.8-metre long undulator.
-
-\subsection{References}
-%
-% References examples given here are not formatted using \cite as there
-%			 are only reference numbers [1] and [2] in the template
-%
-All bibliographical and web references should be numbered and listed at the
-end of the paper in a section called \textbf{REFERENCES}. When citing a
-reference in the text, place the corresponding reference number in square
-brackets~[1]. The reference citations in the text should be numbered
-in ascending order. Multiple citations should appear in
-the same bracket~[3, 4] and
-with ranges where appropriate~[1--4, 10].
-
-A URL or DOI may be included as part of a reference, but its
-hyperlink should NOT be added. The usual practice is to
-use a monospaced font for the URL so as to help distinguish
-it from normal text. In \LaTeX{} the ‘url’ package is used with its 
-default font now being switched to ``newtxtt'' which offers
-a better distinction between ``\texttt{O}'' and ``\texttt{0}''.
-
-For authors to properly cite the resources used when researching
-their papers is an obligation. In the interest of
-promoting uniformity and complete citations, the IEEE
-Editorial Style for Transactions and Journals, which itself 
-adheres to the Chicago Manual of Style, has been adopted~\cite{IEEE}. 
-When citing a periodical, the official abbreviation of the journal 
-should be used\cite{journal-abbreviations}.
-Please consult the appended material, \textbf{ANNEX~B},
-for details. The onus is on authors to pay attention to
-the details of the said style to ensure complete, accurate
-and properly formatted references.
-
-  \begin{table}[h!b]
-	\setlength\tabcolsep{3.5pt}
-	\centering
-	\caption{Summary of Styles}
-	\label{tab:styles}
-	\begin{tabular}{llcc}
-		\toprule
-		\textbf{Style} & \textbf{Font}               & \textbf{Space}  & \textbf{Space} \\
-		&                             & \textbf{Before} & \textbf{After} \\
-		\midrule
-		\textbf{PAPER}  & \SI{14}{pt}                 & \SI{0}{pt}      & \SI{3}{pt}  \\
-		\textbf{TITLE}  & \textbf{UPPERCASE}          &                 &      \\
-		& \textbf{EXCEPT FOR}         &                 &      \\
-		& \textbf{REQUIRED lowercase} &                 &      \\
-		& \textbf{letters}            &                 &      \\
-		& \textbf{Bold}               &                 &      \\[5pt]
-		%\midrule
-		Author list  & \SI{12}{pt}                 & \SI{9}{pt}      & \SI{12}{pt} \\
-		& UPPER- and lowercase        &                 &      \\[5pt]
-		%\midrule
-		\textit{Abstract} & \SI{12}{pt}                 & \SI{0}{pt}      & \SI{3}{pt} \\
-		\textit{Title}  & \textit{Initial Caps}       &                 &      \\
-		& \textit{Italic}             &                 &      \\[5pt]
-		%\midrule
-		\textbf{Section}  & \SI{12}{pt}                 & \SI{9}{pt}      & \SI{3}{pt}  \\
-		\textbf{Heading}  & \textbf{UPPERCASE}          &                 &      \\
-		& \textbf{bold}               &                 &      \\[5pt]
-		%\midrule
-		\textit{Subsection} & \SI{12}{pt}                 & \SI{6}{pt}      & \SI{3}{pt}  \\
-		\textit{Heading}
-                             & \textit{Initial Caps}       &                 &      \\
-		& \textit{Italic}             &                 &      \\[5pt]
-		%\midrule
-		\textbf{Third-level} & \SI{10}{pt}                 & \SI{6}{pt}      & \SI{0}{pt}  \\
-		\textbf{Heading}     
-                            & \textbf{Initial Caps}       &                 &      \\
-		& \textbf{Bold}               &                 &      \\[5pt]
-		%\midrule
-		Figure        & \SI{10}{pt}                 & \SI{3}{pt}      & $\ge$\SI{3}{pt}  \\
-		Captions      &                             &                 &      \\[5pt]
-		%\midrule
-		Table         & \SI{10}{pt}                 & $\ge$\SI{3}{pt} & \SI{3}{pt}  \\
-		Captions      &                             &                 &      \\[5pt]
-		%\midrule
-		Equations     & \SI{10}{pt} base font       & $\ge$\SI{6}{pt}     & $\ge$\SI{6}{pt} \\[5pt]
-		%\midrule
-		References      & \SI{9}{pt}				& \SI{0}{pt}      & \SI{3}{pt} \\
-        when $\le9$ 	& \verb|\bibliography{9}|	&                 &  \\[5pt]
-        Refs. $\ge10$ 	& \SI{9}{pt}				& \SI{0}{pt}      & \SI{3}{pt}  \\
-                		& \verb|\bibliography{99}|	&    &    \\
-		\bottomrule   %\SI{0.25}{in}
-	\end{tabular}
-\end{table}
-
-\subsection{Footnotes}
-
-Footnotes on the title and author lines may be used for acknowledgements
-and e-mail addresses. A non-numeric sequence of characters (*, \#,
-\dag, \ddag, \P) should be used to indicate the footnote.
-These “pseudo footnotes” should only
-appear at the bottom of the first column on the first page.
-
-Any other footnote in the body of the paper should
-use the normal numeric sequencing (i.\,e., 1, 2, 3)
-and appear at the bottom of the same column in which
-it is used.  All footnotes are of 8pt font size.
-
-\subsection{Acronyms}
-
-Acronyms should be defined the first time they appear, 
-both in the abstract and in the rest of the paper. 
-
-\section{STYLES}
-
-Table~\ref{tab:styles} summarizes the fonts and spacing used in the styles of
-a JACoW template. In \LaTeX, these 
-are implemented in the ‘jacow’ class file.
-
-\section{PAGE NUMBERS}
-
-\textbf{DO NOT include any page numbers}. They will be added
-when the final proceedings are produced.
-
-\section{TEMPLATES}
-
-Template documents for the recommended word processing
-software are available from the JACoW website~\cite{jacow-help}
-and exist for \LaTeX, Microsoft Word (Mac and PC)
-and LibreOffice/Apache OpenOffice for US letter and A4
-paper sizes. Use the correct template for your paper size and
-platform.
-
-Fonts are embedded by default with pdf\LaTeX. Using \LaTeX{} with `dvips', 
-make sure that `ps2pdf' has the option \texttt{-dEmbedAllFonts=true}'.
-Fonts of included figure graphics in PDF or EPS are often not embedded. 
-So make sure that this done when generating them or reprocess them 
-in `Ghostscript' with the switch \texttt{-dEmbedAllFonts=true}' set.
-
-\flushcolsend
-
-\section{CHECKLIST FOR ELECTRONIC PUBLICATION}
-Authors are requested to go over the following checklist for electronic publication:
+\section{Continuous Integration (CI)}
+CI refers to a set of development practices that requires developers to integrate code into a shared repository several times a day. Each check-in is then verified by an automated build, allowing teams to detect problems early.
+According to Martin Fowler~\cite{CI}, there are a number of best practices to implement to reach CI: 
 \begin{Itemize}
-	\item  Use only Times or Times New Roman (standard, bold or italic) and Symbol
-	fonts for text, \SI{10}{pt} except references, which should be \SI{9}{pt}.
-	
-	\item  Figures should use Times or Times New Roman (standard, bold or italic) and
-	Symbol fonts when possible---\SI{6}{pt} minimum, with fonts embedded.
-	\item  Check that citations to references appear in sequential order and
-	that all references are cited.
-	\item  Check that the PDF file prints correctly.
-	\item  Check that there are no page numbers.
-	\item  Check that the margins on the printed version are within \SI{\pm1}{mm}
-	of the specifications.
-	\item  \LaTeX{} users can check their margins by invoking the
-	\texttt{boxit} option.
+    \item Maintain a single source repository (for each component of the system) and try to minimize the use of branching, in favor of a single branch of the project currently under development.
+    \item Automate the build (possibly build all in one command).
+    \item Together with the build, it must run also tests so to make the software self-testing (Testing is crucial in CI because all the benefits of it come only if the test suite is good enough).
+    \item Every commit should build on an integration machine: the more the developers commit the better it is (common practice is once per day). In fact, this reduces the number of potential conflicts and once a conflict is found, since the change is small, the fix is easier (as a consequence if a build fails then it must be fixed immediately).
+    \item Keep the build fast so that a problem in integration must be found quickly.
+    \item Multi-stage deployment: every build software must be tested in different environments (testing, staging and so on).
+    \item Make it easy for anyone to get the latest executable version: all programmers should start the day by updating the project from the repository.
+    \item Everyone can see what’s happening: a testing environment with the latest software should be running.
 \end{Itemize}
 
-Please also check the list of common oversights which can be found in \textbf{ANNEX C}.
+\section{Continuous delivery and Continuous deployment (CD)}
+Continuous delivery refers to an extension of the CI that correspond on automate the delivery of new releases of software in a sustainable way. The release frequency can be decided according to the business requirement but the benefit is to release as quickly as possible. 
+The deployment has to be predictable and sustainable no matter if it is a large-scale distributed system, a complex production environment, an embedded system, or an app and therefore, the code must be in a deployable state. Testing is one of the most important activities and needs to cover enough of your codebase. 
+While it is often assumed that frequent deployment means lower levels of stability and reliability in the systems, this is not the reality and, in general, in software the golden rule is “if it hurts, do it more often, and bring the pain forward”.
+There are many patterns for deployment such as the blue-green deployment (Fig.~\ref{fig:bluegreendeploy}) and, in general, all of them are related somehow to the DevOps culture. This means an increase of the collaboration between development (intended as requirement analysis, development and testing) and operations (intended as deployment, operations and maintenance). In fact, it is very common, when those two areas are managed by different teams, that the development team lose interest when the software is managed by another one. Having a shared responsibility means that development teams share the problems of operation teams by working together in automating deployment, maintenance and so on so forth. It is also very important that teams are autonomous: they should be able without any kind of approval, to deploy a change to operations with no fear of failures. 
+More than all this, automation is the key for DevOps because it allows the teams to focus on what is valuable and reduce human errors.
+\begin{figure}[!htb]
+   \centering
+   \includegraphics*[width=1\columnwidth]{BlueGreenDeploy}
+   \caption{Blue-Green deployment: If the active environment in production is the blue box, it deploys on the green and if everything goes well the router can switch the incoming requests; if an error is discovered is always possible to rollback.}
+   \label{fig:bluegreendeploy}
+\end{figure}
+The importance of those practices can be summarized in reducing risks of integration issues, of releasing new software and overall in having a better software product. 
+Continuous deployment goes one step further when every single commit (!) to the software that passes all the stages of the production pipeline goes into production. 
+
+\section{Containerization}
+The system engineering development process has been adopted in the initial phase of the project in order to reduce the complexity by dividing the project into simpler and easier to resolve elements. Every element has realized the initial architecture which comprises the modules needed which requires a repository (each of them is a component of the system).
+Since they all need to get deployed and tested together, the first decision taken is on how they need to be packaged.  A container is a standard unit of software that packages up code and all its dependencies so the component runs quickly and reliably from one computing environment to another. A Docker container image is a lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings.
+In order to allow all the teams to work in the same environment, it has been created a containerized Tango environment~\cite{SKA-docker} is summarized in Fig.~\ref{fig:skadocker}. 
+\begin{figure}[!htb]
+   \centering
+   \includegraphics*[width=1\columnwidth]{ska-docker}
+   \caption{SKA-docker project module view.}
+   \label{fig:skadocker}
+\end{figure}
+Every tango project comes with a docker-composed based orchestration (docker-compose.yml file) that includes:
+\begin{Itemize}
+    \item MariaDB service container, 
+    \item DatabaseDs service container,
+    \item For each device server in the project, one container defined by the developer.
+\end{Itemize}
+Each container includes one application (in TANGO terms one device server) and testing is also made within a container (created on the fly) with a standardized (for SKA) metrics file output that states for each project/component the following information: 
+\begin{Itemize}
+    \item Build status: true or false,
+    \item number of tests,
+    \item Coverage,
+    \item Linting.
+\end{Itemize}
+For the integration of all the docker images (coming from the different repositories), the integration environment is based on Kubernetes (k8s) orchestration~\cite{kubernetes} and Helm~\cite{helm}. Helm is a tool for managing Kubernetes charts where a chart is a packages of pre-configured Kubernetes resources that are a set of information necessary to create an instance of a Kubernetes application. 
+In specific every component has an helm chart that contains information concerning the version of the docker image and the pull policy for the orchestration. It also contains the needed information to initialize correctly the TANGO database (configuration of devices). Fig.~\ref{fig:k8sIntegrationRepo} summarize the module view of the structure of the repository for the integration of the SKA components. 
+\begin{figure}[!htb]
+   \centering
+   \includegraphics*[width=1\columnwidth]{k8sIntegrationRepo}
+   \caption{K8s Integration repository module view.}
+   \label{fig:k8sIntegrationRepo}
+\end{figure}
+
+\section{Infrastructure}
+The infrastructure described in this section is possible thanks to the use of a Makefile in each project that allows to simplify the work on containerization and, overall, the automation of the code building, testing and packaging. In fact, with one single command, it is possible to compile the project, generate the docker image and test it creating dynamically a container for that purpose.  It also allows to push the docker image to the SKA repository. 
+\subsection{Runtime view}
+Fig.~\ref{fig:cicdInfra} describes the runtime view of the CI-CD infrastructure in place for the SKA project. The starting point is the source-code repository server where every team put their code (for instance it can be Github). The CICD Server requests the code from the source code repository periodically and keeps information about the execution of the pipeline (see next section).  The CI executor takes the pipeline configuration information and execute it pushing artifacts to the Artifacts repository. If tests are successfully the executors start the deployment of the software artifacts to various environments (like integration, stage and so on) with ansible scripts.
+\begin{figure}[!htb]
+   \centering
+   \includegraphics*[width=1\columnwidth]{cicdInfra}
+   \caption{Runtime view of the SKA CI-CD infrastructure.}
+   \label{fig:cicdInfra}
+\end{figure}
+
+\subsection{Data Entity}
+The selected tool for CICD is Gitlab where the CI executor is called “runner” and the CICD server is a code repository that includes a description (in a yaml file) of the execution that has to be done by the runners. Gitlab includes also an artifacts repository called “pages” for each repository. Fig.~\ref{fig:datamodel} summarize the data model of the SKA CI-CD infrastructure in a UML diagram.
+
+\begin{figure}[!htb]
+   \centering
+   \includegraphics*[width=1\columnwidth]{dataEntity}
+   \caption{Data Model of the SKA CI-CD infrastructure.}
+   \label{fig:datamodel}
+\end{figure}
+
+The entry point of the diagram is the Pipeline that is composed by many jobs that has been standardirez for each project in:
+\begin{Itemize}
+    \item Build, where code is compiled and docker image is created;
+    \item Linting, where code is analysed against a set (or multiple sets) of coding rules in order to check if it follows the best practices decided;
+    \item Test, where the compiled package (and docker image) are tested; tests is grouped into Fast / Medium / Slow / Very Slow categories.
+    \item Publish, where the coding artifacts are published;
+    \item Pages (not shown in figure), where test results and logs are published (the name comes directly by the Gitlab technology). 
+\end{Itemize}
+
+In the Gitlab cloud space the artifacts stored are the logs of each job executed and the test results obtained by the Test job. Other artifacts (python packages, docker images and so on) are stored in a different repository based on the Nexus tool. For each git revision there is a version of the pipeline configuration (stored in the repository with the name “.gitlab-ci.yml”). 
+
+
+\section{Development workflow}
+There are two possible workflow in order to make a change to a git repository whether there is branch or not. In general, two concepts are important to the SKA way of using GIT:
+\begin{Itemize}
+    \item The master branch of a repository shall always be stable.
+    \item Branches shall be short lived, merging into master as often as possible.
+\end{Itemize}
+
+Stable means that the master branch shall always compile and build correctly, and executing automated tests with success. Every time a master branch results in a condition of instability, reverting to a condition of stability shall have precedence over any other activity on the repository.
+
+Every commit triggers a pipeline build and there may be different rules applied to determine which stages are executed in the pipeline based on factors like the branch name. According to the data model, every pipeline job is associated with its git commit (including tag commits) and developers have to ensure that the stages complete as fast as possible. For this reason it is possible to parallelize jobs, for example unit tests and static analysis could be run in parallel. Developers needs to keep all tests working  on the “master” branch that must be kept stable.
+When working on a development project, it is important to stick to these simple commit rules:
+\begin{Itemize}
+    \item Commit often.
+    \item Git logs shall be human readable in sequence, describing the development activity.
+    \item Use imperative forms in the commit message.
+\end{Itemize}
+
+\subsection{Workflow for master based development}
+\begin{Itemize}
+    \item A developer takes a copy of the current code base on which to work
+    \item Work is started on a local copy
+    \item As the developer advances in the implementation commits are done on the local git repo. 
+    \item Unit tests are written and run in the development environment until successfully executed
+    \item Once the tests pass the developer pushes the changes into a remote repository 
+    \item The CI server 
+\begin{Itemize}
+    \item checks out changes every X minutes (or when they occur)
+    \item Runs static code analysis and provide feedback to the developers
+    \item Builds the system 
+    \item Runs all tests
+    \item releases deployable artefacts for testing (reports, code analysis, etc.)
+    \item assigns a build label to the version of the code it just built (i.e. docker image version)
+    \item alerts the team if the build or tests fail which fixes the issue asap
+    \item provide feedback about coverage metrics
+\end{Itemize}
+\end{Itemize}
+
+\subsection{Workflow for story based branching }
+\begin{Itemize}
+    \item A developer takes a copy of the current code base on which to work
+    \item Work is started on a new branch based on the story being implemented
+    \item As  the developer advances in the implementation commits are done on the local git repo. 
+    \item Unit tests are written and run in the development environment until successfully executed
+    \item Once the tests pass the developer pushes the changes into a remote branch
+    \item The CI server 
+    \begin{Itemize}
+        \item checks out changes when they occur
+        \item Runs static code analysis and provide feedback to the developer
+        \item builds the system and runs unit and integration tests on the branch
+        \item Provide feedback to the developer about test fail or success
+        \item Provide feedback about coverage metrics
+    \end{Itemize}
+    \item Once all tests execute successfully on the branch, the developer makes a pull request for merging the changes into master.
+    \item As part of the pull request the code is reviewed by other developers.
+    \item Code is merged into master branch
+    \item The CI server 
+    \begin{Itemize}
+        \item Runs all tests on the master branch
+        \item releases deployable artefacts for testing (reports, code analysis, etc.)
+        \item assigns a build label to the version of the code it just built (i.e. docker image version)
+        \item alerts the team if the build or tests fail which fixes the issue asap
+    \end{Itemize}
+\end{Itemize}
+
+\section{Dashboard}
+From a management point of view it is very important to monitor the projects in SKA with at least the following information: 
+\begin{Itemize}
+    \item Latest build status and date
+    \item Latest green build date
+    \item Test coverage
+    \item Testing report
+\end{Itemize}
+
+In order to do that, a dashboard has been created as a progressive web app (PWA). this kind of web application are loaded like regular web pages or websites but can offer the user functionality such as working offline, push notifications, and device hardware access traditionally available only to native applications. In specific, PWAs combine the flexibility of the web with the experience of a native application. In particular progressive means that it works for every user, regardless of browser choice because they're built with progressive enhancement as a core tenet. Other important qualities are: 
+\begin{Itemize}
+    \item Responsive, it works for desktop, mobile, tablet;.
+    \item Connectivity independent: it allows work offline
+    \item App-like: feel like an app to the user with app-style interactions and navigation;
+    \item Fresh: always up-to-date thanks to the service worker update process 
+    \item Safe: HTTPS
+\end{Itemize}
+
+The deployment are based on a pipeline with two main jobs:
+\begin{Itemize}
+    \item Retrieve data, from Gitlab rest api download a set of json files (one per each page)
+    \item Publish data, that generate the web page.
+\end{Itemize}
 
 \section{CONCLUSION}
+All the decisions taken for the system team follow the continuous integration suggestion from Martin Fowler’s paper. In particular: 
+\begin{Itemize}
+    \item For each component of the system, there is only one repository with minimal use of branching that are short lived;
+    \item The build of each component is automated together with tests that allows to push only the correct artifacts into the artifact repository;
+    \item Every commit triggers a build in a different machine (not the local developer machine);
+    \item Once the artifacts are built, they are transferred in an integration repository which run a kubernetes cluster and more tests are done;
+    \item Having a common repository for the code artifacts and for the test results artifacts make it very easy to download the latest changes from every team and for each component;
+    \item The integration environment is accessible for every developer. 
+\end{Itemize}
 
-Any conclusions should be in a separate section directly preceding
-the \textbf{ACKNOWLEDGEMENTS}, \textbf{APPENDIX}, or \textbf{REFERENCES} sections, in that
-order.
+There are some work still to be done, the first and most important is improving the performance of the tests. At the moment, tests are executed after the code is compiled and the docker images is built. A possible improvement is building the docker images after the test are executed. Besides more environments has to be created. For this purpose a kubernetes cluster is going to be used so that it will be possible to isolate each environment adding for each of them the specific resources needed in terms of GPUs or other resources. Having kubernetes will also make very easy to realize the blue-green deployment.
+
 
 \section{ACKNOWLEDGEMENTS}
-Any acknowledgement should be in a separate section directly preceding
-the \textbf{REFERENCES} or \textbf{APPENDIX} section.
-
-
-\section{APPENDIX}
-Any appendix should be in a separate section directly preceding
-the \textbf{REFERENCES} section. If there is no \textbf{REFERENCES} section,
-this should be the last section of the paper.
+This work has been made possible thanks to the financial support by the Italian Government (MEF - Ministero dell'Economia e delle Finanze, MIUR - Ministero dell'Istruzione, dell'Università e della Ricerca). This research is also supported by the project Enabling Green E-science for the SKA Research Infrastructure (ENGAGE SKA), reference POCI-01-0145-FEDER-022217, funded by COMPETE 2020 and FCT, Portugal.
 
 %
 % only for "biblatex"
@@ -460,17 +309,25 @@ this should be the last section of the paper.
 	%\begin{thebibliography}{99}   % Use for  10-99  references
 	\begin{thebibliography}{9} % Use for 1-9 references
 	
-	\bibitem{jacow-help}
-		JACoW,
-		\url{http://www.jacow.org}
+	\bibitem{TANGO-controls}
+		TANGO-controls,
+		\url{https://www.tango-controls.org/}
 	
-	\bibitem{IEEE}
-		\textit{IEEE Editorial Style Manual},
-		IEEE Periodicals, Piscataway,
-		NJ, USA, Oct. 2014, pp. 34--52.
-
-	\bibitem{journal-abbreviations}
-	\url{https://woodward.library.ubc.ca/researchhelp/journal-abbreviations/}
+	\bibitem{CI}
+		Martin Fowler, Continuous Integration,
+		\url{https://martinfowler.com/articles/continuousIntegration.html}
+		
+	\bibitem{SKA-docker}
+		SKA-docker repository,
+		\url{https://gitlab.com/ska-telescope/ska-docker}
+	
+	\bibitem{kubernetes}
+		kubernetes,
+		\url{https://kubernetes.io}
+			
+	\bibitem{helm}
+		Helm,
+		\url{https://helm.sh}
 
 	\end{thebibliography}
 } % end \ifboolexpr
