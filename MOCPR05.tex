@@ -71,26 +71,25 @@
 
 \author{M. Di Carlo\thanks{matteo.dicarlo@inaf.it}, INAF Osservatorio Astronomico d'Abruzzo, Teramo, Italy \\
 		M. Bartolini, SKA Organisation, Macclesfield, UK \\
-		K. Madisa, A. J. Venter, SKA South Africa, Cape Town, South Africa \\
-		B. Morgado, Grupo de Radioastronomia do Instituto de Telecomunicações, Aveiro, Portugal
-		}
-	
+		K. Madisa, A. J. Venter, A. de Beer, SKA South Africa, Cape Town, South Africa \\
+		J. B. Morgado, D. Bartashevich, D. Nunes, Instituto de Telecomunicações (GRIT) \\ 
+		Universidade de Aveiro, Portugal}
 \maketitle
 
 %
 \begin{abstract}
-   The Square Kilometre Array (SKA) project is an international effort to build two radio interferometers in South Africa and Australia to form one Observatory monitored and controlled from the global headquarters (GHQ) based in the United Kingdom at Jodrell Bank. The project is now approaching the end of its design phase and gearing up for the beginning of formal construction. The period between the end of the design phases and the start of the construction phase, has been called bridging and, one of the main goals of it, is to promote some CI-CD practices among the teams. CI-CD is an acronym that stands for continuous integration and continuous delivery and/or continuous deployment. Continuous integration (CI) means the practice to merge all developers local (working) copies into the mainline very often (many times per day). Continuous delivery is the approach of developing software in short cycle ensuring that it can be released anytime and continuous deployment is the approach of delivering the software frequently and automatically. The present paper wants to analyse the decision taken by the system team (a specialized agile team devoted to developing and maintaining the tools that allows continuous practises) in order to promote the CI-CD practices with TANGO controls framework. 
+  The Square Kilometre Array (SKA) project is an international effort to build two radio interferometers in South Africa and Australia to form one Observatory monitored and controlled from the global headquarters (GHQ) based in the United Kingdom at Jodrell Bank. The project is now approaching the end of its design phase and gearing up for the beginning of formal construction. The period between the end of the design phase and the start of the construction phase, has been called bridging and, one of its main goals is to promote some CI-CD practices among the software development teams. CI-CD is an acronym that stands for continuous integration and continuous delivery and/or continuous deployment. Continuous integration (CI) is the practice to merge all developers local (working) copies into the mainline very often (many times per day). Continuous delivery is the approach of developing software in short cycle ensuring that it can be released anytime and continuous deployment is the approach of delivering the software frequently and automatically. The present paper wants to analyse the decision taken by the system team (a specialized agile team devoted to developing and maintaining the tools that allows continuous practises) in order to promote the CI-CD practices with TANGO controls framework. 
 
 \end{abstract}
 
 \section{Introduction}
-When creating releases for the end-users, every big software industry faces the problem of integrating the different parts of the software and bring them to the production that is where users work. The problem arises when the many parts of the project are developed independently for a period of time that can be very different from what was planned. In a classical waterfall software development process, this was quite normal but the same happen  also following the classical git flow, that is when a single developer creates a branch to develop a particular feature. Considering, for example, one hundred developers working in the same repository each of them creating one or two branches, then it is easy to understand what is called the “merge hell” that is when every merge has to deal with conflict parts and it is impossible, for a single developer, to solve all the conflicts in its own creating delay in publishing any release. 
+When creating releases for the end-users, every big software industry faces the problem of integrating the different parts of the software and bring them to the production environment, that is where users work. The problem arises when many parts of the project are developed independently for a period of time and when merging them into the same branch, the process takes more than what was planned. In a classical waterfall software development process this is usual, but the same happens also following the classical git flow, also known as feature-based branching, that is when a branch is created for a particular feature. Considering, for example, one hundred developers working in the same repository each of them creating one or two branches, then it is easy to understand what is called the “merge hell” that is when every merge has to deal with conflict parts and it is impossible, for a single developer, to solve all the conflicts thus creating delay in publishing any release. 
 This problem was analyses at the Square Kilometre Array (SKA) project, an international effort to build two radio interferometers in South Africa and Australia to form one Observatory monitored and controlled from the global headquarters (GHQ) based in the United Kingdom at Jodrell Bank.  
 The selected development process is Agile (Scaled Agile framework) that is basically incremental and iterative with a specialized team (known as system team) devoted to support the continuous Integration, test automation and continuous Deployment.
 
 
 \section{TANGO-controls overview}
-One of the most important decisions taken by the SKA project is the adoption of the TANGO-controls framework~\cite{TANGO-controls} which is a middleware for connecting software processes together mainly based on the CORBA standard (Common Object Request Broker Architecture). The standard defines how to exposes the procedures of an object within a software process with the RPC protocol (Remote Procedure Call).  The TANGO framework extends the definition of object with the concept of Device which represents a real or virtual device to control that expose commands (that are procedures), attributes (like the state) and allows both synchronous and asynchronous communication with events generated from the attributes (for instance a change in the value can generate an event). Fig.~\ref{fig:tangodatamodel}  shows a module view of the framework.
+One of the most important decisions taken by the SKA project is the adoption of the TANGO-controls framework which is a middleware for connecting software processes together mainly based on the CORBA standard (Common Object Request Broker Architecture). The standard defines how to exposes the procedures of an object within a software process with the RPC protocol (Remote Procedure Call).  The TANGO framework extends the definition of object with the concept of Device which represents a real or virtual device to control that expose commands (that are procedures), attributes (like the state) and allows both synchronous and asynchronous communication with events generated from the attributes (for instance a change in the value can generate an event). Fig.~\ref{fig:tangodatamodel}  shows a module view of the framework.
 
 \begin{figure}[!htb]
    \centering
@@ -103,22 +102,22 @@ One of the most important decisions taken by the SKA project is the adoption of 
 CI refers to a set of development practices that requires developers to integrate code into a shared repository several times a day. Each check-in is then verified by an automated build, allowing teams to detect problems early.
 According to Martin Fowler~\cite{CI}, there are a number of best practices to implement to reach CI: 
 \begin{Itemize}
-    \item Maintain a single source repository (for each component of the system) and try to minimize the use of branching, in favor of a single branch of the project currently under development.
+    \item Maintain a single source repository (for each component of the system) and try to minimize the use of branching, in favor of a single branch of the project currently under development. 
     \item Automate the build (possibly build all in one command).
-    \item Together with the build, it must run also tests so to make the software self-testing (Testing is crucial in CI because all the benefits of it come only if the test suite is good enough).
-    \item Every commit should build on an integration machine: the more the developers commit the better it is (common practice is once per day). In fact, this reduces the number of potential conflicts and once a conflict is found, since the change is small, the fix is easier (as a consequence if a build fails then it must be fixed immediately).
-    \item Keep the build fast so that a problem in integration must be found quickly.
+    \item Together with the build, it must run also tests so to make the software self-testing (testing is crucial in CI because all the benefits of it come only if the test suite is good enough).
+    \item Every commit should build on an integration machine: the more the developers commit the better it is (common practice is at least once per day). In fact, this reduces the number of potential conflicts and once a conflict is found, since the change is small, the fix is easier (as a consequence if a build fails then it must be fixed immediately).
+    \item Keep the build fast so that a problem in integration can be found quickly.
     \item Multi-stage deployment: every build software must be tested in different environments (testing, staging and so on).
     \item Make it easy for anyone to get the latest executable version: all programmers should start the day by updating the project from the repository.
     \item Everyone can see what’s happening: a testing environment with the latest software should be running.
 \end{Itemize}
 
 \section{Continuous delivery and Continuous deployment (CD)}
-Continuous delivery refers to an extension of the CI that correspond on automate the delivery of new releases of software in a sustainable way. The release frequency can be decided according to the business requirement but the benefit is to release as quickly as possible. 
-The deployment has to be predictable and sustainable no matter if it is a large-scale distributed system, a complex production environment, an embedded system, or an app and therefore, the code must be in a deployable state. Testing is one of the most important activities and needs to cover enough of your codebase. 
-While it is often assumed that frequent deployment means lower levels of stability and reliability in the systems, this is not the reality and, in general, in software the golden rule is “if it hurts, do it more often, and bring the pain forward”.
-There are many patterns for deployment such as the blue-green deployment (Fig.~\ref{fig:bluegreendeploy}) and, in general, all of them are related somehow to the DevOps culture. This means an increase of the collaboration between development (intended as requirement analysis, development and testing) and operations (intended as deployment, operations and maintenance). In fact, it is very common, when those two areas are managed by different teams, that the development team lose interest when the software is managed by another one. Having a shared responsibility means that development teams share the problems of operation teams by working together in automating deployment, maintenance and so on so forth. It is also very important that teams are autonomous: they should be able without any kind of approval, to deploy a change to operations with no fear of failures. 
-More than all this, automation is the key for DevOps because it allows the teams to focus on what is valuable and reduce human errors.
+Continuous delivery~\cite{CD} refers to an extension of the CI that correspond to automating the delivery of new releases of software in a sustainable way. The release frequency can be decided according to the business requirement but the greatest benefit is reached by releasing as quickly as possible. 
+The deployment has to be predictable and sustainable, no matter if it is a large-scale distributed system, a complex production environment, an embedded system, or an app. Therefore the code must be in a deployable state. Testing is one of the most important activities and it needs to cover enough of your codebase. 
+While it is often assumed that frequent deployment means lower levels of stability and reliability in the systems, this is not the reality and, in general, in software the golden rule is “if it hurts, do it more often, and bring the pain forward” (~\cite{CD}, page 26).
+There are many patterns for deployment such as the blue-green deployment (Fig.~\ref{fig:bluegreendeploy}, (~\cite{CD}, page 261)) and, in general, all of them are related somehow to the DevOps culture. According to ~\cite{DevOps}, "DevOps is the outcome of applying the most trusted principles from the domain of physical manufacturing and leadership to the IT value stream. [...] The result is world-class quality, reliability, stability, and security at ever lower cost and effort; and accelerated flow and reliability throughout the technology value stream, including Product Management, Development, QA, IT Operations, and Infosec". Practically it is an increased collaboration between development (intended as requirement analysis, development and testing) and operations (intended as deployment, operations and maintenance). In fact, it is very common, when those two areas are managed by different teams, that the development team loses interest in the operations aspects, when the software is managed by a different team. Having a shared responsibility means that development teams share the problems of operations by working together in automating deployment operations and maintenance. It is also very important that teams are autonomous: they should be empowered to deploy a change to operations with no fear of failures. 
+Moreover, automation is one of the key elements in implementing a DevOps strategy, as it allows the teams to focus on what is valuable (code development, test result, etc. and not the deployment itself) and it reduces human errors.
 \begin{figure}[!htb]
    \centering
    \includegraphics*[width=1\columnwidth]{BlueGreenDeploy}
@@ -126,11 +125,11 @@ More than all this, automation is the key for DevOps because it allows the teams
    \label{fig:bluegreendeploy}
 \end{figure}
 The importance of those practices can be summarized in reducing risks of integration issues, of releasing new software and overall in having a better software product. 
-Continuous deployment goes one step further when every single commit (!) to the software that passes all the stages of the production pipeline goes into production. 
+Continuous deployment goes one step further as every single commit (!) to the software that passes all the stages of the build and test pipeline is deployed into the production environment. 
 
 \section{Containerization}
-The system engineering development process has been adopted in the initial phase of the project in order to reduce the complexity by dividing the project into simpler and easier to resolve elements. Every element has realized the initial architecture which comprises the modules needed which requires a repository (each of them is a component of the system).
-Since they all need to get deployed and tested together, the first decision taken is on how they need to be packaged.  A container is a standard unit of software that packages up code and all its dependencies so the component runs quickly and reliably from one computing environment to another. A Docker container image is a lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings.
+The system engineering development process has been adopted in the initial design phase of the SKA project in order to reduce the complexity by dividing the project into simpler and easier to resolve elements. For every element of the system, an initial architecture has been developed, which comprises the software modules needed which requires a repository (each of them is a component of the system).
+Since all components need to get deployed and tested together, the first decision taken is on how they need to be packaged.  A container is a standard unit of software that packages up code and all its dependencies so the component runs quickly and reliably across different computing environments. A Docker container image is a lightweight, standalone, executable package of software that includes everything needed to run an application: code (or more in general binary), runtime, system tools, system libraries and settings.
 In order to allow all the teams to work in the same environment, it has been created a containerized Tango environment~\cite{SKA-docker} is summarized in Fig.~\ref{fig:skadocker}. 
 \begin{figure}[!htb]
    \centering
@@ -147,12 +146,11 @@ Every tango project comes with a docker-composed based orchestration (docker-com
 Each container includes one application (in TANGO terms one device server) and testing is also made within a container (created on the fly) with a standardized (for SKA) metrics file output that states for each project/component the following information: 
 \begin{Itemize}
     \item Build status: true or false,
-    \item number of tests,
+    \item Test report,
     \item Coverage,
-    \item Linting.
+    \item Linting information.
 \end{Itemize}
-For the integration of all the docker images (coming from the different repositories), the integration environment is based on Kubernetes (k8s) orchestration~\cite{kubernetes} and Helm~\cite{helm}. Helm is a tool for managing Kubernetes charts where a chart is a packages of pre-configured Kubernetes resources that are a set of information necessary to create an instance of a Kubernetes application. 
-In specific every component has an helm chart that contains information concerning the version of the docker image and the pull policy for the orchestration. It also contains the needed information to initialize correctly the TANGO database (configuration of devices). Fig.~\ref{fig:k8sIntegrationRepo} summarize the module view of the structure of the repository for the integration of the SKA components. 
+For the integration of all the docker images (coming from the different repositories), the integration environment is based on Kubernetes (k8s) orchestration~\cite{kubernetes} and Helm~\cite{helm}. Helm is a tool for managing Kubernetes charts where a chart is a package of pre-configured Kubernetes resources that are a set of information necessary to create an instance of a Kubernetes application. In specific every chart contains at least information concerning the version of the docker image and the pull policy for the orchestration. In specific every component has a helm chart that contains information concerning the version of the docker image and the pull policy for the orchestration. It also contains the needed information to initialize correctly the TANGO database (configuration of devices). Fig.~\ref{fig:k8sIntegrationRepo} summarize the module view of the structure of the repository for the integration of the SKA components. 
 \begin{figure}[!htb]
    \centering
    \includegraphics*[width=1\columnwidth]{k8sIntegrationRepo}
@@ -161,9 +159,9 @@ In specific every component has an helm chart that contains information concerni
 \end{figure}
 
 \section{Infrastructure}
-The infrastructure described in this section is possible thanks to the use of a Makefile in each project that allows to simplify the work on containerization and, overall, the automation of the code building, testing and packaging. In fact, with one single command, it is possible to compile the project, generate the docker image and test it creating dynamically a container for that purpose.  It also allows to push the docker image to the SKA repository. 
+The infrastructure described in this section is possible thanks to the use of a Makefile in each project that allows to simplify the work on containerization and, overall, the automation of the code building, testing and packaging processes. In fact, with one single command, it is possible to compile the project, generate the docker image and test it by dynamically creating a container for that purpose.  The Makefile also allows to push the docker image to the SKA repository. 
 \subsection{Runtime view}
-Fig.~\ref{fig:cicdInfra} describes the runtime view of the CI-CD infrastructure in place for the SKA project. The starting point is the source-code repository server where every team put their code (for instance it can be Github). The CICD Server requests the code from the source code repository periodically and keeps information about the execution of the pipeline (see next section).  The CI executor takes the pipeline configuration information and execute it pushing artifacts to the Artifacts repository. If tests are successfully the executors start the deployment of the software artifacts to various environments (like integration, stage and so on) with ansible scripts.
+Fig.~\ref{fig:cicdInfra} describes the runtime view of the CICD infrastructure in place for the SKA project. The starting point is the source-code repository server where every team put their code (for instance it can be Github). The CICD Server requests the code from the source code repository periodically and keeps information about the execution of the pipeline (see next section).  The CI executor takes the pipeline configuration information and executes it pushing artifacts to the Artifacts repository. If tests are successful the executors starts the deployment of the software artifacts to various environments (like integration, stage and so on) using ansible scripts~\cite{ansible}.
 \begin{figure}[!htb]
    \centering
    \includegraphics*[width=1\columnwidth]{cicdInfra}
@@ -173,7 +171,6 @@ Fig.~\ref{fig:cicdInfra} describes the runtime view of the CI-CD infrastructure 
 
 \subsection{Data Entity}
 The selected tool for CICD is Gitlab where the CI executor is called “runner” and the CICD server is a code repository that includes a description (in a yaml file) of the execution that has to be done by the runners. Gitlab includes also an artifacts repository called “pages” for each repository. Fig.~\ref{fig:datamodel} summarize the data model of the SKA CI-CD infrastructure in a UML diagram.
-
 \begin{figure}[!htb]
    \centering
    \includegraphics*[width=1\columnwidth]{dataEntity}
@@ -181,13 +178,13 @@ The selected tool for CICD is Gitlab where the CI executor is called “runner�
    \label{fig:datamodel}
 \end{figure}
 
-The entry point of the diagram is the Pipeline that is composed by many jobs that has been standardirez for each project in:
+The entry point of the diagram is the Pipeline that is composed by many jobs. This has been standardised for each project in:
 \begin{Itemize}
-    \item Build, where code is compiled and docker image is created;
+    \item Build, where code is compiled and a docker image is created;
     \item Linting, where code is analysed against a set (or multiple sets) of coding rules in order to check if it follows the best practices decided;
-    \item Test, where the compiled package (and docker image) are tested; tests is grouped into Fast / Medium / Slow / Very Slow categories.
+    \item Test, where the compiled package (and docker image) are tested; tests are grouped into Fast / Medium / Slow / Very Slow categories.
     \item Publish, where the coding artifacts are published;
-    \item Pages (not shown in figure), where test results and logs are published (the name comes directly by the Gitlab technology). 
+    \item Pages, where test results and logs are published (the name comes directly by the Gitlab technology). 
 \end{Itemize}
 
 In the Gitlab cloud space the artifacts stored are the logs of each job executed and the test results obtained by the Test job. Other artifacts (python packages, docker images and so on) are stored in a different repository based on the Nexus tool. For each git revision there is a version of the pipeline configuration (stored in the repository with the name “.gitlab-ci.yml”). 
@@ -219,14 +216,14 @@ When working on a development project, it is important to stick to these simple 
     \item Once the tests pass the developer pushes the changes into a remote repository 
     \item The CI server 
 \begin{Itemize}
-    \item checks out changes every X minutes (or when they occur)
+    \item Checks out changes every X minutes (or when they occur)
     \item Runs static code analysis and provide feedback to the developers
     \item Builds the system 
     \item Runs all tests
-    \item releases deployable artefacts for testing (reports, code analysis, etc.)
-    \item assigns a build label to the version of the code it just built (i.e. docker image version)
-    \item alerts the team if the build or tests fail which fixes the issue asap
-    \item provide feedback about coverage metrics
+    \item Releases deployable artefacts for testing (reports, code analysis, etc.)
+    \item Assigns a build label to the version of the code it just built (i.e. docker image version)
+    \item Alerts the team if the build or tests fail which fixes the issue asap
+    \item Provide feedback about coverage metrics
 \end{Itemize}
 \end{Itemize}
 
@@ -239,7 +236,7 @@ When working on a development project, it is important to stick to these simple 
     \item Once the tests pass the developer pushes the changes into a remote branch
     \item The CI server 
     \begin{Itemize}
-        \item checks out changes when they occur
+        \item Checks out changes when they occur
         \item Runs static code analysis and provide feedback to the developer
         \item builds the system and runs unit and integration tests on the branch
         \item Provide feedback to the developer about test fail or success
@@ -251,9 +248,9 @@ When working on a development project, it is important to stick to these simple 
     \item The CI server 
     \begin{Itemize}
         \item Runs all tests on the master branch
-        \item releases deployable artefacts for testing (reports, code analysis, etc.)
-        \item assigns a build label to the version of the code it just built (i.e. docker image version)
-        \item alerts the team if the build or tests fail which fixes the issue asap
+        \item Releases deployable artefacts for testing (reports, code analysis, etc.)
+        \item Assigns a build label to the version of the code it just built (i.e. docker image version)
+        \item Alerts the team if the build or tests fail which fixes the issue asap
     \end{Itemize}
 \end{Itemize}
 
@@ -266,7 +263,7 @@ From a management point of view it is very important to monitor the projects in 
     \item Testing report
 \end{Itemize}
 
-In order to do that, a dashboard has been created as a progressive web app (PWA). this kind of web application are loaded like regular web pages or websites but can offer the user functionality such as working offline, push notifications, and device hardware access traditionally available only to native applications. In specific, PWAs combine the flexibility of the web with the experience of a native application. In particular progressive means that it works for every user, regardless of browser choice because they're built with progressive enhancement as a core tenet. Other important qualities are: 
+In order to do that, a dashboard has been created as a progressive web app (PWA). this kind of web application are loaded like regular web pages or websites but can offer user functionalities such as working offline, push notifications, and device hardware access traditionally available only to native applications. In specific, PWAs combine the flexibility of the web with the experience of a native application. In particular progressive means that it works for every user, regardless of browser choice because they're built with progressive enhancement as a core tenet. Other important qualities are: 
 \begin{Itemize}
     \item Responsive, it works for desktop, mobile, tablet;.
     \item Connectivity independent: it allows work offline
@@ -282,7 +279,7 @@ The deployment are based on a pipeline with two main jobs:
 \end{Itemize}
 
 \section{CONCLUSION}
-All the decisions taken for the system team follow the continuous integration suggestion from Martin Fowler’s paper. In particular: 
+All the decisions taken by the system team try to follow the continuous integration suggestion from Martin Fowler’s paper. In particular: 
 \begin{Itemize}
     \item For each component of the system, there is only one repository with minimal use of branching that are short lived;
     \item The build of each component is automated together with tests that allows to push only the correct artifacts into the artifact repository;
@@ -292,7 +289,7 @@ All the decisions taken for the system team follow the continuous integration su
     \item The integration environment is accessible for every developer. 
 \end{Itemize}
 
-There are some work still to be done, the first and most important is improving the performance of the tests. At the moment, tests are executed after the code is compiled and the docker images is built. A possible improvement is building the docker images after the test are executed. Besides more environments has to be created. For this purpose a kubernetes cluster is going to be used so that it will be possible to isolate each environment adding for each of them the specific resources needed in terms of GPUs or other resources. Having kubernetes will also make very easy to realize the blue-green deployment.
+There is some work still to be done, the first and most important is improving the performance of the tests. At the moment, tests are executed after the code is compiled and the docker images are built. A possible improvement is building the docker images after the tests are executed. Besides, more environments have to be created. For this purpose a kubernetes cluster is going to be used so that it will be possible to isolate each environment adding for each of them the specific resources needed in terms of GPUs or other resources. Having kubernetes will also make very easy to implement the blue-green deployment pattern.
 
 
 \section{ACKNOWLEDGEMENTS}
@@ -317,6 +314,13 @@ This work has been made possible thanks to the financial support by the Italian 
 		Martin Fowler, Continuous Integration,
 		\url{https://martinfowler.com/articles/continuousIntegration.html}
 		
+	\bibitem{CD}
+	    J. Humble, D. Farley, "Continuous Delivery: Reliable Software Releases Through Build, Test, and Deployment Automation",
+	    2010, ISBN (0321601912, 9780321601919), Pub. Addison-Wesley Professional
+	
+	\bibitem{DevOps}
+	    G. Kim, P. Debois, J. Willis, J. Humble, "The DevOps Handbook: How to Create World-Class Agility, Reliability, and Security in Technology Organizations", ISBN (1942788002 9781942788003)
+	
 	\bibitem{SKA-docker}
 		SKA-docker repository,
 		\url{https://gitlab.com/ska-telescope/ska-docker}
@@ -328,6 +332,9 @@ This work has been made possible thanks to the financial support by the Italian 
 	\bibitem{helm}
 		Helm,
 		\url{https://helm.sh}
+		
+	\bibitem{ansible}
+	    Ansible, \url{https://www.ansible.com/}
 
 	\end{thebibliography}
 } % end \ifboolexpr
